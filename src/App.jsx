@@ -7,11 +7,7 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
 
-  return (
-    <>
-      <div class="box-border size-32 border-4 p-4 ..."></div>
-    </>
-  );
+  return <></>;
 }
 
 export default App;
