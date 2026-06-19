@@ -10,16 +10,14 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const atmosUsers = localStorage.getItem("atmosUsers");
     const atmosCurrentUser = localStorage.getItem("atmosCurrentUser");
-    if (atmosUsers) {
-      dispatch({
-        type: "LOAD_AUTH_STATE",
-        payload: {
-          users: JSON.parse(atmosUsers),
-          currentUser: JSON.parse(atmosCurrentUser),
-        },
-      });
-      setIsAuthLoaded(true);
-    }
+    dispatch({
+      type: "LOAD_AUTH_STATE",
+      payload: {
+        users: atmosUsers ? JSON.parse(atmosUsers) : [],
+        currentUser: atmosCurrentUser ? JSON.parse(atmosCurrentUser) : null,
+      },
+    });
+    setIsAuthLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -40,7 +38,7 @@ export default function AuthProvider({ children }) {
   }, [state.currentUser, isAuthLoaded]);
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={{ state, dispatch, isAuthLoaded }}>
       {children}
     </AuthContext.Provider>
   );
