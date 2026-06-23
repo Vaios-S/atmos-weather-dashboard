@@ -64,9 +64,14 @@ export default function Favorites() {
             </button>
           </div>
         ))}
-      {favoriteWeatherData.map((weather) => (
-        <WeatherCard key={weather.id} weather={weather} />
-      ))}
+      {loading ? (
+        <Loader />
+      ) : (
+        favoriteWeatherData.map((weather) => (
+          <WeatherCard key={weather.id} weather={weather} />
+        ))
+      )}
+      {weatherState.error && <ErrorMessage message={error} />}
     </>
   );
 }

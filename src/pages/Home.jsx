@@ -1,5 +1,5 @@
 import { getCurrentWeather } from "../api/weatherApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useWeather from "../hooks/useWeather";
 import SearchBar from "../components/weather/SearchBar";
 import WeatherCard from "../components/weather/WeatherCard";
@@ -16,14 +16,22 @@ export default function Home() {
       console.log("You need to search for a City");
       return;
     }
+    fetchWeather(searchData);
+  }
+
+  async function fetchWeather(city) {
     dispatch({ type: "FETCH_WEATHER_START" });
     try {
-      const data = await getCurrentWeather(searchData, state.unit);
+      const data = await getCurrentWeather(city, state.unit);
       dispatch({ type: "FETCH_WEATHER_SUCCESS", payload: data });
     } catch (error) {
       dispatch({ type: "FETCH_WEATHER_ERROR", payload: "City not Found" });
     }
   }
+
+  useEffect(() => {
+    fetchWeather(state.currentWeather.name);
+  }, [state.unit]);
 
   return (
     <>
