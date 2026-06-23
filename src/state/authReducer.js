@@ -17,6 +17,38 @@ export function authReducer(state, action) {
       return { ...state, currentUser: action.payload };
     case "LOGOUT":
       return { ...state, currentUser: null };
+    case "ADD_FAVORITES":
+      const updatedUsers = state.users.map((user) => {
+        if (user.id === state.currentUser.id) {
+          return {
+            ...user,
+            favorites: [...user.favorites, action.payload],
+          };
+        }
+
+        return user;
+      });
+
+      return {
+        ...state,
+        users: updatedUsers,
+      };
+    case "REMOVE_FAVORITES":
+      const updatedUsers2 = state.users.map((user) => {
+        if (user.id === state.currentUser.id) {
+          return {
+            ...user,
+            favorites: user.favorites.filter((city) => city !== action.payload),
+          };
+        }
+
+        return user;
+      });
+
+      return {
+        ...state,
+        users: updatedUsers2,
+      };
     default:
       return state;
   }
