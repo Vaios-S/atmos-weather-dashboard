@@ -49,6 +49,46 @@ export function authReducer(state, action) {
         ...state,
         users: updatedUsers2,
       };
+    case "ADD_RECENT_SEARCH":
+      const updatedUsers3 = state.users.map((user) => {
+        if (user.id === state.currentUser.id) {
+          for (let i = 0; i < user.recentSearches.length; i++) {
+            if (user.recentSearches[i] === action.payload) {
+              return {
+                ...user,
+                recentSearches: [...user.recentSearches],
+              };
+            }
+          }
+          return {
+            ...user,
+            recentSearches: [...user.recentSearches, action.payload],
+          };
+        }
+
+        return user;
+      });
+
+      return {
+        ...state,
+        users: updatedUsers3,
+      };
+    case "REMOVE_RECENT_SEARCH":
+      const updatedUsers4 = state.users.map((user) => {
+        if (user.id === state.currentUser.id) {
+          return {
+            ...user,
+            recentSearches: [],
+          };
+        }
+
+        return user;
+      });
+
+      return {
+        ...state,
+        users: updatedUsers4,
+      };
     default:
       return state;
   }

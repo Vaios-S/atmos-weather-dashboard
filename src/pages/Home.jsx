@@ -5,10 +5,12 @@ import SearchBar from "../components/weather/SearchBar";
 import WeatherCard from "../components/weather/WeatherCard";
 import Loader from "../components/ui/Loader";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const [searchData, setSearchData] = useState("");
-  const { state, dispatch } = useWeather();
+  const { state: authState, dispatch: authDispatch } = useAuth();
+  const { state: weatherState, dispatch: weatherDispatch } = useWeather();
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -20,18 +22,35 @@ export default function Home() {
   }
 
   async function fetchWeather(city) {
-    dispatch({ type: "FETCH_WEATHER_START" });
+    weatherDispatch({ type: "FETCH_WEATHER_START" });
     try {
-      const data = await getCurrentWeather(city, state.unit);
-      dispatch({ type: "FETCH_WEATHER_SUCCESS", payload: data });
+      const data = await getCurrentWeather(city, weatherState.unit);
+      weatherDispatch({ type: "FETCH_WEATHER_SUCCESS", payload: data });
+      authDispatch({ type: "ADD_RECENT_SEARCH", payload: data.name });
     } catch (error) {
-      dispatch({ type: "FETCH_WEATHER_ERROR", payload: "City not Found" });
+      weatherDispatch({
+        type: "FETCH_WEATHER_ERROR",
+        payload: "City not Found",
+      });
     }
   }
 
   useEffect(() => {
-    fetchWeather(state.currentWeather.name);
-  }, [state.unit]);
+    fetchWeather(searchData);
+  }, [weatherState.unit]);
+
+  function handleSelectRecent(city) {
+    console.log(city);
+    fetchWeather(city);
+  }
+
+  function handleClearHistory() {
+    authDispatch({ type: "REMOVE_RECENT_SEARCH" });
+  }
+
+  const currentUserData = authState.users.find(
+    (user) => user.id === authState.currentUser.id,
+  ).recentSearches;
 
   return (
     <>
@@ -41,10 +60,15 @@ export default function Home() {
         value={searchData}
         onSubmit={handleSearch}
         onChange={(e) => setSearchData(e.target.value)}
+        recentSearches={currentUserData}
+        onSelectRecent={handleSelectRecent}
+        onClearHistory={handleClearHistory}
       />
-      {state.loading && <Loader />}
-      {state.currentWeather && <WeatherCard weather={state.currentWeather} />}
-      {state.error && <ErrorMessage message={state.error} />}
+      {weatherState.loading && <Loader />}
+      {weatherState.currentWeather && (
+        <WeatherCard weather={weatherState.currentWeather} />
+      )}
+      {weatherState.error && <ErrorMessage message={weatherState.error} />}
     </>
   );
 }
