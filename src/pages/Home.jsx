@@ -9,6 +9,7 @@ import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const [searchData, setSearchData] = useState("");
+
   const { state: authState, dispatch: authDispatch } = useAuth();
   const { state: weatherState, dispatch: weatherDispatch } = useWeather();
 
@@ -26,6 +27,7 @@ export default function Home() {
     try {
       const data = await getCurrentWeather(city, weatherState.unit);
       weatherDispatch({ type: "FETCH_WEATHER_SUCCESS", payload: data });
+
       authDispatch({ type: "ADD_RECENT_SEARCH", payload: data.name });
     } catch (error) {
       weatherDispatch({
@@ -54,21 +56,45 @@ export default function Home() {
 
   return (
     <>
-      <h1>Home</h1>
+      <div className="mx-auto flex max-w-5xl flex-col gap-8">
+        <div>
+          <h1 className="text-4xl font-bold tracking-tight">
+            Weather Dashboard
+          </h1>
 
-      <SearchBar
-        value={searchData}
-        onSubmit={handleSearch}
-        onChange={(e) => setSearchData(e.target.value)}
-        recentSearches={currentUserData}
-        onSelectRecent={handleSelectRecent}
-        onClearHistory={handleClearHistory}
-      />
-      {weatherState.loading && <Loader />}
-      {weatherState.currentWeather && (
-        <WeatherCard weather={weatherState.currentWeather} />
-      )}
-      {weatherState.error && <ErrorMessage message={weatherState.error} />}
+          <p className="mt-2 text-white/60">
+            Search current weather conditions around the world.
+          </p>
+        </div>
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+          <SearchBar
+            value={searchData}
+            onSubmit={handleSearch}
+            onChange={(e) => setSearchData(e.target.value)}
+            recentSearches={currentUserData}
+            onSelectRecent={handleSelectRecent}
+            onClearHistory={handleClearHistory}
+          />
+        </div>
+
+        {weatherState.loading && (
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-12 text-center backdrop-blur-xl">
+            <Loader />
+          </div>
+        )}
+
+        <div className="flex justify-center">
+          {weatherState.currentWeather && (
+            <WeatherCard weather={weatherState.currentWeather} />
+          )}
+        </div>
+
+        {weatherState.error && (
+          <div className="rounded-3xl border border-red-500/30 bg-red-500/10 p-6 text-center text-red-300">
+            <ErrorMessage message={weatherState.error} />
+          </div>
+        )}
+      </div>
     </>
   );
 }
