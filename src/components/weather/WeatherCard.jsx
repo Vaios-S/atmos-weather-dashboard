@@ -1,4 +1,5 @@
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 
 export default function WeatherCard({ weather }) {
   const { state, dispatch } = useAuth();
@@ -21,7 +22,9 @@ export default function WeatherCard({ weather }) {
   }
   return (
     <>
-      <h1>{weather.name}</h1>
+      <Link to={`/city/${weather.name}`}>
+        <h1>{weather.name}</h1>
+      </Link>
       <p>{weather.main.temp}</p>
       <p>{weather.weather[0].description}</p>
       <p>Humidity: {weather.main.humidity}</p>
