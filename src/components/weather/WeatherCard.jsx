@@ -29,6 +29,7 @@ export default function WeatherCard({ weather }) {
   const icon = weather.weather[0].icon;
   const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   const windUnit = weatherState.unit === "metric" ? "m/s" : "mph";
+  const tempUnit = weatherState.unit === "metric" ? "°C" : "°F";
 
   return (
     <>
@@ -50,8 +51,14 @@ export default function WeatherCard({ weather }) {
           <img src={iconUrl} alt={description} className="h-20 w-20" />
         </div>
         <div className="mt-8">
-          <p className="text-7xl font-light tracking-tighter">{temperature}°</p>
-          <p className="mt-2 text-sm text-white/50">Feels like {feelsLike}°</p>
+          <p className="text-7xl font-light tracking-tighter">
+            {temperature}
+            {tempUnit}
+          </p>
+          <p className="mt-2 text-sm text-white/50">
+            Feels like {feelsLike}
+            {tempUnit}
+          </p>
         </div>
         <div className="mt-8 grid grid-cols-3 gap-3">
           <div className="rounded-2xl bg-black/20 p-4">

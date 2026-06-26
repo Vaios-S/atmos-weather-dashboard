@@ -27,7 +27,6 @@ export default function Home() {
     try {
       const data = await getCurrentWeather(city, weatherState.unit);
       weatherDispatch({ type: "FETCH_WEATHER_SUCCESS", payload: data });
-
       authDispatch({ type: "ADD_RECENT_SEARCH", payload: data.name });
     } catch (error) {
       weatherDispatch({
@@ -77,11 +76,11 @@ export default function Home() {
           />
         </div>
 
-        {weatherState.loading && (
+        {/* {weatherState.loading && (
           <div className="rounded-3xl border border-white/10 bg-white/5 p-12 text-center backdrop-blur-xl">
             <Loader />
           </div>
-        )}
+        )} */}
 
         <div className="flex justify-center">
           {weatherState.currentWeather && (

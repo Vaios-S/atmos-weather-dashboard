@@ -1,11 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useWeather from "../../hooks/useWeather";
+import useTheme from "../../hooks/useTheme";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const { state: authState, dispatch: authDispatch } = useAuth();
   const { state: weatherState, dispatch: weatherDispatch } = useWeather();
+  const { theme, toggleTheme } = useTheme();
 
   function handleLogout() {
     dispatch({ type: "LOGOUT" });
@@ -54,6 +56,12 @@ export default function Navbar() {
             onClick={() => weatherDispatch({ type: "TOGGLE_UNIT" })}
           >
             {weatherState.unit}
+          </button>
+          <button
+            className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20"
+            onClick={toggleTheme}
+          >
+            {theme === "light" ? "☀️" : "🌑"}
           </button>
         </div>
       </div>
