@@ -10,8 +10,9 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
   function handleLogout() {
-    dispatch({ type: "LOGOUT" });
+    authDispatch({ type: "LOGOUT" });
     navigate("/login");
+    localStorage.clear("theme");
   }
 
   return (

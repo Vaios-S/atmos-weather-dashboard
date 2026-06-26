@@ -76,11 +76,11 @@ export default function Home() {
           />
         </div>
 
-        {/* {weatherState.loading && (
+        {weatherState.loading && (
           <div className="rounded-3xl border border-white/10 bg-white/5 p-12 text-center backdrop-blur-xl">
             <Loader />
           </div>
-        )} */}
+        )}
 
         <div className="flex justify-center">
           {weatherState.currentWeather && (

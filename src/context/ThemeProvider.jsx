@@ -3,7 +3,8 @@ import { createContext, useEffect, useState } from "react";
 export const ThemeContext = createContext();
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  const savedTheme = localStorage.getItem("theme");
+  const [theme, setTheme] = useState(savedTheme);
 
   function toggleTheme() {
     if (theme === "light") {
@@ -19,7 +20,6 @@ export default function ThemeProvider({ children }) {
   }, [theme]);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       setTheme(savedTheme);
     }
