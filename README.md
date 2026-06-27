@@ -1,16 +1,114 @@
-# React + Vite
+# Atmos Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern weather widget application built with React, Vite, Tailwind CSS and the OpenWeatherMap API.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Atmos allows users to search for real-time weather information by city, view detailed weather data, save favorite cities, switch between Celsius and Fahrenheit, manage recent searches, and use light/dark theme mode.
 
-## React Compiler
+This project was built as a final React project and focuses on React fundamentals, routing, Context API, reducers, local storage persistence, API integration, reusable components, and testing.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Detect user's current location using the Browser Geolocation API
+- Display current weather based on the user's location on application startup
+- Search current weather by city
+- View temperature, feels like, humidity, wind speed, pressure, min/max temperature, sunrise, sunset, weather description and icon
+- City details page using URL parameters
+- Save and remove favorite cities per user
+- Recent searches per user
+- Toggle between Celsius and Fahrenheit
+- Light/Dark theme using Context API
+- Protected routes
+- Local authentication using localStorage
+- Persistent users, favorites, recent searches, theme and unit preferences
+- Dynamic weather backgrounds
+- Responsive layout with Tailwind CSS
+- 404 Not Found page
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies
+
+- React
+- Vite
+- React Router
+- Tailwind CSS
+- Context API
+- useReducer
+- Axios
+- OpenWeatherMap API
+- localStorage
+- Vitest
+- React Testing Library
+
+## Local Authentication Note
+
+This project uses a simple local authentication flow for educational purposes.
+
+Users are stored in the browser's localStorage, and login is handled by checking the registered email and password against the stored users.
+
+In a real production application, passwords should never be stored in localStorage. A secure backend or authentication service such as Firebase Authentication, Auth0, or a custom server with hashed passwords should be used instead.
+
+## State Management
+
+The project uses React Context API together with useReducer.
+
+This approach was chosen because the application has shared state across multiple pages, but it is still small enough that Redux is not required for the first version.
+
+The state is separated by concern:
+
+- Auth state handles users, current user, favorites and recent searches.
+- Weather state handles current weather, loading, error and selected unit.
+- Theme state handles light/dark mode.
+
+This keeps the logic organized and avoids unnecessary prop drilling.
+
+## Project Setup
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd <project-folder>
+```
+
+Install the project dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file in the project root and add your OpenWeatherMap API key:
+
+```env
+VITE_API_KEY=your_openweathermap_api_key
+```
+
+You can obtain a free API key from:
+
+https://openweathermap.org/api
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The application will be available at:
+
+```txt
+http://localhost:5173
+```
+
+## Running Tests
+
+Run the test suite:
+
+```bash
+npm run test
+```
+
+If you prefer using the Vitest user interface:
+
+```bash
+npm run test:ui
+```

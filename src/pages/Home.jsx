@@ -1,4 +1,5 @@
 import { getCurrentWeather } from "../api/weatherApi";
+import { getCurrentWeatherCoord } from "../api/weatherApiCoord";
 import { useState, useEffect } from "react";
 import useWeather from "../hooks/useWeather";
 import SearchBar from "../components/weather/SearchBar";
@@ -9,6 +10,10 @@ import useAuth from "../hooks/useAuth";
 
 export default function Home() {
   const [searchData, setSearchData] = useState("");
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [weatherCoords, setWeatherCoords] = useState(null);
 
   const { state: authState, dispatch: authDispatch } = useAuth();
   const { state: weatherState, dispatch: weatherDispatch } = useWeather();
@@ -20,6 +25,38 @@ export default function Home() {
       return;
     }
     fetchWeather(searchData);
+  }
+
+  function findCoords() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        setLatitude(lat);
+        setLongitude(lon);
+        fetchWeatherCurrentLocation(lat, lon);
+      });
+    } else {
+      return console.log("Geolocation is not supported.");
+    }
+  }
+
+  // findCoords();
+  useEffect(() => {
+    findCoords();
+  }, []);
+
+  async function fetchWeatherCurrentLocation(lat, lon) {
+    setLoading(true);
+    try {
+      const data = await getCurrentWeatherCoord(lat, lon, weatherState.unit);
+      setWeatherCoords(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function fetchWeather(city) {
@@ -37,6 +74,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    if (searchData.trim() === "") return;
     fetchWeather(searchData);
   }, [weatherState.unit]);
 
@@ -86,6 +124,10 @@ export default function Home() {
           {weatherState.currentWeather && (
             <WeatherCard weather={weatherState.currentWeather} />
           )}
+        </div>
+
+        <div className="flex justify-center">
+          {weatherCoords && <WeatherCard weather={weatherCoords} />}
         </div>
 
         {weatherState.error && (
