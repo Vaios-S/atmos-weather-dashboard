@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useWeather from "../hooks/useWeather";
 import { getCurrentWeather } from "../api/weatherApi";
-import WeatherCard from "../components/weather/WeatherCard";
 import Loader from "../components/ui/Loader";
 import ErrorMessage from "../components/ui/ErrorMessage";
 
@@ -42,9 +41,9 @@ export default function CityDetails() {
       <p>{cityDetailWeatherData.main.feels_like}</p>
       <p>{cityDetailWeatherData.weather[0].description}</p>
       <p>{cityDetailWeatherData.main.humidity}</p>
-      <p>{cityDetailWeatherData.wind.pressure}</p>
-      <p>{cityDetailWeatherData.wind.temp_min}</p>
-      <p>{cityDetailWeatherData.wind.temp_max}</p>
+      <p>{cityDetailWeatherData.main.pressure}</p>
+      <p>{cityDetailWeatherData.main.temp_min}</p>
+      <p>{cityDetailWeatherData.main.temp_max}</p>
       <p>{cityDetailWeatherData.sys.sunrise}</p>
       <p>{cityDetailWeatherData.sys.sunset}</p>
     </>

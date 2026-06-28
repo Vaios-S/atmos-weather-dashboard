@@ -24,8 +24,9 @@ export default function SearchBar({
             Search
           </button>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
-          {recentSearches.length > 0 ? (
+
+        {recentSearches?.length > 0 ? (
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
             <div>
               <p className="mb-3 text-sm font-semibold text-white/60">
                 Recent Searches
@@ -48,8 +49,8 @@ export default function SearchBar({
                 Clear History
               </button>
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </form>
     </>
   );

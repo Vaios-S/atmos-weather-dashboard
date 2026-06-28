@@ -9,8 +9,10 @@ export default function AppLayout() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
-  const weatherMain = state.currentWeather?.weather?.[0]?.main;
-  const backgroundImage = getWeatherBackground(weatherMain);
+  const background = getWeatherBackground(
+    state.currentWeather?.weather?.[0]?.main,
+    state.currentWeather?.weather?.[0]?.description,
+  );
 
   return (
     <div
@@ -26,11 +28,11 @@ ease-in-out
 text-white
   "
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${background})`,
       }}
     >
       <div
-        className={`absolute inset-0 ${isDark ? "bg-black/60" : "bg-white/55"}`}
+        className={`absolute inset-0 ${isDark ? "bg-black/40" : "bg-white/0"}`}
       />
 
       <div

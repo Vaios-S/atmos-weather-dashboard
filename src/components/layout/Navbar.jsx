@@ -12,7 +12,7 @@ export default function Navbar() {
   function handleLogout() {
     authDispatch({ type: "LOGOUT" });
     navigate("/login");
-    localStorage.clear("theme");
+    localStorage.removeItem("theme");
   }
 
   return (

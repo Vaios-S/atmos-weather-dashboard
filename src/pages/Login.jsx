@@ -10,6 +10,7 @@ export default function Login() {
   });
   const { state, dispatch } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const foundUser = state.users.find(
     (user) =>
@@ -20,7 +21,7 @@ export default function Login() {
     e.preventDefault();
 
     if (formData.email.trim() === "" || formData.password.trim() === "") {
-      console.log("All fields are required");
+      setError("All fields are required");
       return;
     }
 
@@ -34,7 +35,7 @@ export default function Login() {
       });
       navigate("/");
     } else {
-      console.log("Invalid email or password");
+      setError("Invalid email or password");
     }
   }
 
@@ -125,6 +126,7 @@ active:scale-[0.98]
               Register here
             </Link>
           </p>
+          <p>{error}</p>
         </form>
       </AuthLayout>
     </>

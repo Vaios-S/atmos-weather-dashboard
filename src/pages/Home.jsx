@@ -14,6 +14,7 @@ export default function Home() {
   const [longitude, setLongitude] = useState(0);
   const [loading, setLoading] = useState(false);
   const [weatherCoords, setWeatherCoords] = useState(null);
+  const [error, setError] = useState(null);
 
   const { state: authState, dispatch: authDispatch } = useAuth();
   const { state: weatherState, dispatch: weatherDispatch } = useWeather();
@@ -21,9 +22,10 @@ export default function Home() {
   async function handleSearch(e) {
     e.preventDefault();
     if (searchData.trim() === "") {
-      console.log("You need to search for a City");
+      setError("You need to search for a City");
       return;
     }
+    setError(null);
     fetchWeather(searchData);
   }
 
@@ -37,12 +39,12 @@ export default function Home() {
         setLongitude(lon);
         fetchWeatherCurrentLocation(lat, lon);
       });
+      setError(null);
     } else {
-      return console.log("Geolocation is not supported.");
+      return setError("Geolocation is not supported.");
     }
   }
 
-  // findCoords();
   useEffect(() => {
     findCoords();
   }, []);
@@ -79,7 +81,6 @@ export default function Home() {
   }, [weatherState.unit]);
 
   function handleSelectRecent(city) {
-    console.log(city);
     fetchWeather(city);
   }
 
@@ -87,12 +88,15 @@ export default function Home() {
     authDispatch({ type: "REMOVE_RECENT_SEARCH" });
   }
 
-  const currentUserData = authState.users.find(
-    (user) => user.id === authState.currentUser.id,
-  ).recentSearches;
+  const currentUserData =
+    authState.users.find((user) => user.id === authState.currentUser.id)
+      .recentSearches || [];
+
+  const mainWeather = weatherState.currentWeather || weatherCoords;
 
   return (
     <>
+      {weatherCoords ? "" : <Loader />}
       <div className="mx-auto flex max-w-5xl flex-col gap-8">
         <div>
           <h1 className="text-4xl font-bold tracking-tight">
@@ -104,6 +108,7 @@ export default function Home() {
           </p>
         </div>
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+          <p>{error}</p>
           <SearchBar
             value={searchData}
             onSubmit={handleSearch}
@@ -114,25 +119,16 @@ export default function Home() {
           />
         </div>
 
-        {weatherState.loading && (
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-12 text-center backdrop-blur-xl">
-            <Loader />
-          </div>
-        )}
+        {weatherState.loading && <Loader />}
 
-        <div className="flex justify-center">
-          {weatherState.currentWeather && (
-            <WeatherCard weather={weatherState.currentWeather} />
-          )}
-        </div>
-
-        <div className="flex justify-center">
-          {weatherCoords && <WeatherCard weather={weatherCoords} />}
-        </div>
-
-        {weatherState.error && (
+        {weatherState.error ? (
           <div className="rounded-3xl border border-red-500/30 bg-red-500/10 p-6 text-center text-red-300">
-            <ErrorMessage message={weatherState.error} />
+            <ErrorMessage title={weatherState.error} />
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            {" "}
+            <WeatherCard weather={mainWeather} variant="hero" />
           </div>
         )}
       </div>

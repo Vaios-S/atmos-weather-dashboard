@@ -1,6 +1,6 @@
 # Atmos Weather Dashboard
 
-A modern weather widget application built with React, Vite, Tailwind CSS and the OpenWeatherMap API.
+A modern weather dashboard built with React, Vite and Tailwind CSS that provides real-time weather information using the OpenWeatherMap API. The application supports user authentication, favorites management, current location detection, dynamic themes and detailed weather information through a responsive and modern user interface.
 
 ## Overview
 

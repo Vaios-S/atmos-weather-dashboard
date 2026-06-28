@@ -32,7 +32,7 @@ export default function AuthLayout({ children, title, subtitle }) {
           </div>
         </section>
 
-        <p className=" flex flex-col items-center text-center lg:items-start lg:text-leftmax-w-md text-center text-sm leading-6 text-white/50 lg:absolute lg:bottom-10 lg:left-12 lg:text-left">
+        <p className=" flex flex-col items-center text-center lg:items-start lg:text-left max-w-md text-center text-sm leading-6 text-white/50 lg:absolute lg:bottom-10 lg:left-12 lg:text-left">
           Search real-time weather, save your favorite cities, and build your
           own modern weather dashboard.
         </p>

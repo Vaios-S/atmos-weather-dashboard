@@ -1,11 +1,12 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Loader from "../components/ui/Loader";
 
 export default function ProtectedRoute({ children }) {
   const { state, isAuthLoaded } = useAuth();
 
   if (!isAuthLoaded) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
   if (!state.currentUser) {
     return <Navigate to="/login" replace />;

@@ -50,6 +50,7 @@ export default function Favorites() {
   return (
     <>
       <h1>Favorites</h1>
+
       {favorites.length === 0 && <p>No favorites cities yet.</p>}
       {favorites &&
         favorites.map((city) => (
@@ -71,7 +72,7 @@ export default function Favorites() {
           <WeatherCard key={weather.id} weather={weather} />
         ))
       )}
-      {weatherState.error && <ErrorMessage message={error} />}
+      {error && <ErrorMessage title={error} />}
     </>
   );
 }

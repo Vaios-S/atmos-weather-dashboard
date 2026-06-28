@@ -12,6 +12,7 @@ export default function Register() {
 
   const { state, dispatch } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,22 +22,22 @@ export default function Register() {
       formData.password.trim() === "" ||
       formData.confirmPassword.trim() === ""
     ) {
-      console.log("All fields are required");
+      setError("All fields are required");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      console.log("Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
 
     if (formData.password.length < 6) {
-      console.log("Password must be at least 6 characters");
+      setError("Password must be at least 6 characters");
       return;
     }
 
     if (state.users.some((user) => user.email === formData.email)) {
-      console.log("Email already registered");
+      setError("Email already registered");
       return;
     }
 
@@ -181,6 +182,7 @@ active:scale-[0.98]
               Login here
             </Link>
           </p>
+          <p>{error}</p>
         </form>
       </AuthLayout>
     </>
