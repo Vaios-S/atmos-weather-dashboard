@@ -118,28 +118,28 @@ export default function Home() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex min-h-[78vh] flex-col justify-center lg:pl-82"
+          className="flex min-h-[72vh] flex-col justify-center lg:pl-8"
         >
-          <div className="max-w-5xl ">
-            <p className=" [text-shadow:_0_2px_10px_rgb(0_0_0_/_95%)] b-5 text-xl font-medium tracking-tight text-white">
+          <div className="max-w-3xl">
+            <p className="[text-shadow:_0_2px_10px_rgb(0_0_0_/_95%)] mb-4 text-base font-medium tracking-tight text-white">
               Weather Forecast
             </p>
 
-            <h1 className="   mt-5 text-7xl font-light leading-none tracking-[-0.07em] text-white  [text-shadow:_0_2px_10px_rgb(0_0_0_/_45%)] sm:text-8xl lg:text-9xl">
+            <h1 className="mt-4 text-6xl font-light leading-none tracking-[-0.07em] text-white [text-shadow:_0_2px_10px_rgb(0_0_0_/_45%)] sm:text-7xl lg:text-8xl">
               {mainWeather?.weather?.[0]?.main || "Weather"}
             </h1>
 
-            <p className=" [text-shadow:_0_2px_10px_rgb(0_0_0_/_45%)] mt-6 max-w-3xl text-4xl font-light leading-tight tracking-[-0.05em] text-white/85 sm:text-5xl lg:text-6xl">
+            <p className="[text-shadow:_0_2px_10px_rgb(0_0_0_/_45%)] mt-5 max-w-2xl text-3xl font-light leading-tight tracking-[-0.05em] text-white/85 sm:text-4xl lg:text-5xl">
               {toTitleCase(mainWeather?.weather?.[0]?.description) ||
                 "Atmospheric conditions"}
             </p>
 
-            <p className=" [text-shadow:_0_2px_10px_rgb(0_0_0_/_95%)] mt-8 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">
+            <p className="[text-shadow:_0_2px_10px_rgb(0_0_0_/_95%)] mt-6 max-w-xl text-sm leading-6 text-white/80">
               {description}
             </p>
           </div>
 
-          <div className="mt-12 max-w-3xl flex flex-col gap-5">
+          <div className="mt-8 max-w-2xl flex flex-col gap-4">
             <SearchBar
               value={searchData}
               onSubmit={handleSearch}
@@ -153,26 +153,27 @@ export default function Home() {
 
           <FormatForecast weather={mainWeather} />
 
-          <section className="mt-10">
-            <div className="flex gap-10 max-w-420 ">
-              <h2 className=" [text-shadow:_0_2px_10px_rgb(0_0_0_/_65%)] mb-5 text-xl font-medium tracking-tight text-white">
+          <section className="mt-8">
+            <div className="flex gap-6 max-w-3xl">
+              <h2 className="[text-shadow:_0_2px_10px_rgb(0_0_0_/_65%)] mb-4 text-lg font-medium tracking-tight text-white">
                 Recent Searches
               </h2>
+
               <button
-                className="mb-5 text-red-600 shadow-lg shadow-black/10 hover:text-white"
+                className="mb-4 text-sm text-red-600 shadow-lg shadow-black/10 transition-colors hover:text-white"
                 onClick={handleClearHistory}
               >
                 Clear
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-3 max-w-420 ">
+            <div className="flex flex-wrap gap-2 max-w-3xl">
               {currentUserData.map((city) => (
                 <button
                   key={city}
                   type="button"
                   onClick={() => handleSelectRecent(city)}
-                  className="rounded-full border border-white/15 bg-white/10 px-5 py-3 text-sm font-medium text-white/75 shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:bg-white/15 hover:text-white active:scale-[0.98]"
+                  className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-medium text-white/75 shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:bg-white/15 hover:text-white active:scale-[0.98]"
                 >
                   {city}
                 </button>
@@ -181,7 +182,7 @@ export default function Home() {
           </section>
         </motion.section>
 
-        <aside className="flex flex-col justify-center gap-5 lg:-translate-x-52">
+        <aside className="flex flex-col justify-center gap-5 ">
           {mainWeather && <WeatherCard weather={mainWeather} />}
 
           {mainWeather && <SunCard weather={mainWeather} />}

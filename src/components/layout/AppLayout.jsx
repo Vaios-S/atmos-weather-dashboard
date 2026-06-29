@@ -39,8 +39,8 @@ text-white
       <div
         className={`relative z-10 min-h-screen ${isDark ? "text-white" : "text-zinc-950"}`}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/5 to-black/25" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.28)_100%)]" />
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/5 to-black/25" /> */}
+        {/* <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(0,0,0,0.28)_100%)]" /> */}
         <Navbar />
 
         <main className="w-full px-6 py-6 sm:px-8 lg:px-10 2xl:px-14">

@@ -84,14 +84,14 @@ export default function FormatForecast({ weather }) {
           },
         },
       }}
-      className="mt-14 w-full max-w-420"
+      className="mt-10 w-full max-w-280"
     >
-      <h2 className="mb-6 text-2xl font-semibold tracking-tight text-white [text-shadow:_0_2px_10px_rgb(0_0_0_/_45%)]">
+      <h2 className="mb-5 text-xl font-semibold tracking-tight text-white [text-shadow:_0_2px_10px_rgb(0_0_0_/_45%)]">
         5-Day Forecast
       </h2>
 
-      <div className="rounded-3xl border border-white/15 bg-white/10 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl">
-        <div className="flex gap-5 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="rounded-3xl border border-white/15 bg-white/10 p-4 shadow-2xl shadow-black/20 backdrop-blur-xl">
+        <div className="flex gap-3">
           {forecastDays.map((day) => (
             <div
               key={day.day}
@@ -103,27 +103,27 @@ export default function FormatForecast({ weather }) {
                 duration: 0.45,
                 ease: "easeOut",
               }}
-              className=" flex-1 relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-white/10 p-6 text-center shadow-xl shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/15"
+              className="relative flex-1 overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-4 text-center shadow-xl shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/15"
             >
-              <p className="text-lg font-semibold text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]">
+              <p className="text-base font-semibold text-white [text-shadow:_0_2px_8px_rgb(0_0_0_/_40%)]">
                 {day.day}
               </p>
 
               <img
                 src={day.iconUrl}
                 alt={day.description}
-                className="mx-auto mt-5 h-16 w-16 object-contain drop-shadow-xl"
+                className="mx-auto mt-3 h-12 w-12 object-contain drop-shadow-xl"
               />
 
-              <p className="mt-5 text-5xl font-light tracking-tight text-white [text-shadow:_0_2px_12px_rgb(0_0_0_/_45%)]">
+              <p className="mt-3 text-3xl font-light tracking-tight text-white [text-shadow:_0_2px_12px_rgb(0_0_0_/_45%)]">
                 {day.maxTemp}°
               </p>
 
-              <p className="mt-2 text-xl font-light text-white/60">
+              <p className="mt-1 text-lg font-light text-white/60">
                 {day.minTemp}°
               </p>
 
-              <p className="mt-4 min-h-12 text-base font-medium capitalize leading-snug text-white/75">
+              <p className="mt-3 min-h-5 text-sm font-medium capitalize leading-snug text-white/75">
                 {day.description}
               </p>
             </div>

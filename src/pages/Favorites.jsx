@@ -108,7 +108,7 @@ export default function Favorites() {
                 },
               },
             }}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3"
+            className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3"
           >
             {favoriteWeatherData.map((weather) => (
               <motion.div
