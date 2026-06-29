@@ -2,6 +2,8 @@ import { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
 import AuthLayout from "../components/auth/AuthLayout";
+import { motion } from "framer-motion";
+import ErrorMessage from "../components/ui/ErrorMessage";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -71,119 +73,74 @@ export default function Register() {
         title="Create an account"
         subtitle="Join our weather community and get personalized forecasts."
       >
-        <form className="space-y-5" onSubmit={handleSubmit}>
-          <label>Email:</label>
-          <input
-            className="
-w-full
-h-14
-rounded-2xl
-border
-border-white/10
-bg-white/5
-px-5
-text-white
-placeholder:text-white/40
-backdrop-blur-md
-transition-all
-duration-200
-outline-none
-focus:border-blue-500
-focus:bg-white/[0.08]
-focus:ring-4
-focus:ring-blue-500/20
-"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-          />
-          <label>Password:</label>
-          <input
-            className="
-w-full
-h-14
-rounded-2xl
-border
-border-white/10
-bg-white/5
-px-5
-text-white
-placeholder:text-white/40
-backdrop-blur-md
-transition-all
-duration-200
-outline-none
-focus:border-blue-500
-focus:bg-white/[0.08]
-focus:ring-4
-focus:ring-blue-500/20
-"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={(e) =>
-              setFormData({ ...formData, password: e.target.value })
-            }
-          />
-          <label>Confirm Password:</label>
-          <input
-            className="
-w-full
-h-14
-rounded-2xl
-border
-border-white/10
-bg-white/5
-px-5
-text-white
-placeholder:text-white/40
-backdrop-blur-md
-transition-all
-duration-200
-outline-none
-focus:border-blue-500
-focus:bg-white/[0.08]
-focus:ring-4
-focus:ring-blue-500/20
-"
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={(e) =>
-              setFormData({ ...formData, confirmPassword: e.target.value })
-            }
-          />
-          <button
-            className="
-mt-2
-w-full
-h-14
-rounded-2xl
-bg-blue-600
-font-semibold
-text-white
-transition-all
-duration-300
-hover:bg-blue-500
-hover:shadow-lg
-hover:shadow-blue-500/30
-active:scale-[0.98]
-"
-            type="submit"
-          >
-            Register
-          </button>
-          <p className="text-sm text-white/50">
-            Already have an account?{" "}
-            <Link to="/login" className="text-blue-500 hover:underline">
-              Login here
-            </Link>
-          </p>
-          <p>{error}</p>
-        </form>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+        >
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-5">
+              {error && <ErrorMessage message={error} />}
+              <label className="mb-2 block text-sm font-medium text-white/65">
+                Email
+              </label>
+              <input
+                className="h-14 w-full rounded-2xl border border-white/15 bg-white/10 px-5 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/40 focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-blue-600/40"
+                type="email"
+                placeholder="Email"
+                value={formData.email}
+                autoComplete="email"
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
+              <label className="mb-2 block text-sm font-medium text-white/65">
+                Password
+              </label>
+              <input
+                className="h-14 w-full rounded-2xl border border-white/15 bg-white/10 px-5 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/40 focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-blue-600/40"
+                type="password"
+                placeholder="Password"
+                value={formData.password}
+                autoComplete="new-password"
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
+              />
+              <label className="mb-2 block text-sm font-medium text-white/65">
+                Confirm Password
+              </label>
+
+              <input
+                className="h-14 w-full rounded-2xl border border-white/15 bg-white/10 px-5 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/40 focus:border-white/30 focus:bg-white/15 focus:ring-4 focus:ring-blue-600/40"
+                type="password"
+                placeholder="Confirm password"
+                value={formData.confirmPassword}
+                autoComplete="new-password"
+                onChange={(e) =>
+                  setFormData({ ...formData, confirmPassword: e.target.value })
+                }
+              />
+
+              <button
+                className="h-14 w-full rounded-2xl border border-white/15 bg-white/15 text-sm font-medium text-white shadow-lg shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:bg-blue-600/20 active:scale-[0.98]"
+                type="submit"
+              >
+                Create account
+              </button>
+
+              <p className="text-center text-sm text-white/50">
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  className="font-medium text-white/80 transition-colors duration-300 hover:text-blue-600"
+                >
+                  Sign in
+                </Link>
+              </p>
+            </div>
+          </form>
+        </motion.div>
       </AuthLayout>
     </>
   );

@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <>
       {weatherCoords ? "" : <Loader />}
-      <div className=" overflow-hidden grid min-h-[calc(100vh-7rem)] w-full grid-cols-1 gap-10  lg:grid-cols-[minmax(0,1fr)_380px] xl:grid-cols-[minmax(0,1fr)_420px]">
+      <div className=" grid min-h-[calc(100vh-7rem)] w-full grid-cols-1 gap-10  lg:grid-cols-[minmax(0,1fr)_380px] xl:grid-cols-[minmax(0,1fr)_420px]">
         <motion.section
           key={mainWeather?.name}
           initial={{ opacity: 0, x: -20 }}
@@ -139,7 +139,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 max-w-3xl">
+          <div className="mt-12 max-w-3xl flex flex-col gap-5">
             <SearchBar
               value={searchData}
               onSubmit={handleSearch}
@@ -148,14 +148,23 @@ export default function Home() {
               onSelectRecent={handleSelectRecent}
               onClearHistory={handleClearHistory}
             />
+            {weatherState.error && <ErrorMessage title={weatherState.error} />}
           </div>
 
           <FormatForecast weather={mainWeather} />
 
           <section className="mt-10">
-            <h2 className=" [text-shadow:_0_2px_10px_rgb(0_0_0_/_65%)] mb-5 text-xl font-medium tracking-tight text-white">
-              Recent Searches
-            </h2>
+            <div className="flex gap-10 max-w-420 ">
+              <h2 className=" [text-shadow:_0_2px_10px_rgb(0_0_0_/_65%)] mb-5 text-xl font-medium tracking-tight text-white">
+                Recent Searches
+              </h2>
+              <button
+                className="mb-5 text-red-600 shadow-lg shadow-black/10 hover:text-white"
+                onClick={handleClearHistory}
+              >
+                Clear
+              </button>
+            </div>
 
             <div className="flex flex-wrap gap-3 max-w-420 ">
               {currentUserData.map((city) => (
