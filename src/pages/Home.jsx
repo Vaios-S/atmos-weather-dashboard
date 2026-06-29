@@ -80,9 +80,13 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (searchData.trim() === "") return;
-    fetchWeather(searchData);
-  }, [weatherState.unit]);
+    if (!weatherState.currentWeather?.name) {
+      fetchWeatherCurrentLocation(latitude, longitude);
+      return;
+    }
+
+    fetchWeather(weatherState.currentWeather.name);
+  }, [weatherState.currentWeather?.name, weatherState.unit]);
 
   function handleSelectRecent(city) {
     fetchWeather(city);
