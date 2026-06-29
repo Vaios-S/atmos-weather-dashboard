@@ -5,7 +5,7 @@ export default function Loader({
   subMessage = "Please wait while we get the data for you.",
 }) {
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 backdrop-blur-md">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur-md">
       <div
         className="
     flex
