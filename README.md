@@ -1,6 +1,6 @@
 # Atmos Weather Dashboard
 
-A modern weather dashboard built with React, Vite and Tailwind CSS that provides real-time weather information using the OpenWeatherMap API. The application supports user authentication, favorites management, current location detection, dynamic themes and detailed weather information through a responsive and modern user interface.
+Atmos is a premium weather application built with React, Vite and Tailwind CSS that provides real-time weather information through a clean, atmospheric interface inspired by modern operating system design. The application combines weather search, location-based forecasts, favorites management, authentication and dynamic themes into a polished user experience.
 
 ## Overview
 
@@ -25,6 +25,11 @@ This project was built as a final React project and focuses on React fundamental
 - Dynamic weather backgrounds
 - Responsive layout with Tailwind CSS
 - 404 Not Found page
+- Premium glassmorphism UI inspired by modern operating systems
+- 5-day weather forecast
+- Animated UI transitions using Framer Motion
+- Premium responsive layout for desktop and mobile
+- Dynamic weather backgrounds based on current condition
 
 ## Technologies
 
@@ -39,6 +44,7 @@ This project was built as a final React project and focuses on React fundamental
 - localStorage
 - Vitest
 - React Testing Library
+- Framer Motion
 
 ## Local Authentication Note
 
