@@ -10,11 +10,22 @@ describe("weatherReducer", () => {
   });
 
   test("should set loading to true when fetching weather starts", () => {
-    const loadingState = weatherReducer(initialWeatherState, {
+    const newState = weatherReducer(initialWeatherState, {
       type: "FETCH_WEATHER_START",
     });
 
-    expect(loadingState.loading).toBe(true);
-    expect(loadingState.error).toBe(null);
+    expect(newState.loading).toBe(true);
+    expect(newState.error).toBe(null);
+  });
+
+  test("should store weather data when fetching succeeds", () => {
+    const newState = weatherReducer(initialWeatherState, {
+      type: "FETCH_WEATHER_SUCCESS",
+      payload: { name: "Thessaloniki" },
+    });
+
+    expect(newState.loading).toBe(false);
+    expect(newState.error).toBe(null);
+    expect(newState.currentWeather.name).toBe("Thessaloniki");
   });
 });
