@@ -3,6 +3,7 @@ import { getCurrentWeather } from "../api/weatherApi";
 
 vi.mock("axios");
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
+
 describe("getCurrentWeather", () => {
   test("should return weather data", async () => {
     const mockData = {
@@ -26,5 +27,13 @@ describe("getCurrentWeather", () => {
         units: "metric",
       },
     });
+  });
+
+  test("should throw an error when weather fetch fails", async () => {
+    axios.get.mockRejectedValue(new Error("Network Error"));
+
+    await expect(getCurrentWeather("Thessaloniki")).rejects.toThrow(
+      "Network Error",
+    );
   });
 });
