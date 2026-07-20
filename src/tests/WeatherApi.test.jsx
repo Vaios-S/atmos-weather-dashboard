@@ -74,4 +74,12 @@ describe("getCurrentWeather", () => {
       },
     });
   });
+
+  test("should throw an error when forecast fetch fails", async () => {
+    axios.get.mockRejectedValue(new Error("Network Error"));
+
+    await expect(getCurrentWeatherForecast("Thessaloniki")).rejects.toThrow(
+      "Network Error",
+    );
+  });
 });
