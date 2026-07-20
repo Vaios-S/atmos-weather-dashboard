@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCurrentWeather } from "../api/weatherApi";
 
 vi.mock("axios");
-
+const BASE_URL = "https://api.openweathermap.org/data/2.5";
 describe("getCurrentWeather", () => {
   test("should return weather data", async () => {
     const mockData = {
@@ -19,5 +19,12 @@ describe("getCurrentWeather", () => {
     const result = await getCurrentWeather("Thessaloniki");
 
     expect(result).toEqual(mockData);
+    expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/weather`, {
+      params: {
+        q: "Thessaloniki",
+        appid: expect.any(String),
+        units: "metric",
+      },
+    });
   });
 });
