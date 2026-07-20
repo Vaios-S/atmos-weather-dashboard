@@ -58,4 +58,20 @@ describe("getCurrentWeather", () => {
 
     expect(result).toEqual(mockForecast);
   });
+
+  test("should call axios with correct forecast parameters", async () => {
+    axios.get.mockResolvedValue({
+      data: {},
+    });
+
+    await getCurrentWeatherForecast("Thessaloniki");
+
+    expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/forecast`, {
+      params: {
+        q: "Thessaloniki",
+        appid: expect.any(String),
+        units: "metric",
+      },
+    });
+  });
 });
