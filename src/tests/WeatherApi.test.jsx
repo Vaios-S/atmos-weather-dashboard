@@ -92,4 +92,22 @@ describe("getCurrentWeather", () => {
 
     expect(axios.get).toHaveBeenCalled();
   });
+
+  test("should request weather using imperial units", async () => {
+    axios.get.mockResolvedValue({
+      data: {},
+    });
+
+    await getCurrentWeather("Thessaloniki", "imperial");
+
+    expect(axios.get).toHaveBeenCalledWith(
+      expect.stringContaining("/weather"),
+      expect.objectContaining({
+        params: expect.objectContaining({
+          q: "Thessaloniki",
+          units: "imperial",
+        }),
+      }),
+    );
+  });
 });
