@@ -117,4 +117,25 @@ describe("authReducer", () => {
 
     expect(newState.users[0].favorites).toEqual(["London"]);
   });
+
+  test("should add a recent search", () => {
+    const user = {
+      id: 1,
+      username: "john",
+      favorites: [],
+      recentSearches: [],
+    };
+
+    const state = {
+      users: [user],
+      currentUser: user,
+    };
+
+    const newState = authReducer(state, {
+      type: "ADD_RECENT_SEARCH",
+      payload: "Athens",
+    });
+
+    expect(newState.users[0].recentSearches).toEqual(["Athens"]);
+  });
 });
