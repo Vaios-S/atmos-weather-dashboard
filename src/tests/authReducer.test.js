@@ -57,4 +57,22 @@ describe("authReducer", () => {
 
     expect(newState.currentUser).toEqual(user);
   });
+
+  test("should logout the current user", () => {
+    const state = {
+      ...initialAuthState,
+      currentUser: {
+        id: 1,
+        username: "john",
+        favorites: [],
+        recentSearches: [],
+      },
+    };
+
+    const newState = authReducer(state, {
+      type: "LOGOUT",
+    });
+
+    expect(newState.currentUser).toBe(null);
+  });
 });
