@@ -96,4 +96,25 @@ describe("authReducer", () => {
 
     expect(newState.users[0].favorites).toEqual(["Athens"]);
   });
+
+  test("should remove a city from favorites", () => {
+    const user = {
+      id: 1,
+      username: "john",
+      favorites: ["Athens", "London"],
+      recentSearches: [],
+    };
+
+    const state = {
+      users: [user],
+      currentUser: user,
+    };
+
+    const newState = authReducer(state, {
+      type: "REMOVE_FAVORITES",
+      payload: "Athens",
+    });
+
+    expect(newState.users[0].favorites).toEqual(["London"]);
+  });
 });
