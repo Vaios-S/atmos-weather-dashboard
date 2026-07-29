@@ -41,4 +41,20 @@ describe("authReducer", () => {
 
     expect(newState.users).toEqual([newUser]);
   });
+
+  test("should login a user", () => {
+    const user = {
+      id: 1,
+      username: "john",
+      favorites: [],
+      recentSearches: [],
+    };
+
+    const newState = authReducer(initialAuthState, {
+      type: "LOGIN",
+      payload: user,
+    });
+
+    expect(newState.currentUser).toEqual(user);
+  });
 });
