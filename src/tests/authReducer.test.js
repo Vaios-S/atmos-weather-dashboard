@@ -75,4 +75,25 @@ describe("authReducer", () => {
 
     expect(newState.currentUser).toBe(null);
   });
+
+  test("should add a city to favorites", () => {
+    const user = {
+      id: 1,
+      username: "john",
+      favorites: [],
+      recentSearches: [],
+    };
+
+    const state = {
+      users: [user],
+      currentUser: user,
+    };
+
+    const newState = authReducer(state, {
+      type: "ADD_FAVORITES",
+      payload: "Athens",
+    });
+
+    expect(newState.users[0].favorites).toEqual(["Athens"]);
+  });
 });
