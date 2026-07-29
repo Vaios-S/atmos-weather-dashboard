@@ -28,4 +28,14 @@ describe("weatherReducer", () => {
     expect(newState.error).toBe(null);
     expect(newState.currentWeather.name).toBe("Thessaloniki");
   });
+
+  test("should handle weather fetch error", () => {
+    const newState = weatherReducer(initialWeatherState, {
+      type: "FETCH_WEATHER_ERROR",
+      payload: "Failed to fetch weather",
+    });
+
+    expect(newState.loading).toBe(false);
+    expect(newState.error).toBe("Failed to fetch weather");
+  });
 });
