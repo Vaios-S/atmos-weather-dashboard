@@ -25,4 +25,20 @@ describe("authReducer", () => {
     expect(newState.users).toEqual(payload.users);
     expect(newState.currentUser).toEqual(payload.currentUser);
   });
+
+  test("should register a new user", () => {
+    const newUser = {
+      id: 1,
+      username: "john",
+      favorites: [],
+      recentSearches: [],
+    };
+
+    const newState = authReducer(initialAuthState, {
+      type: "REGISTER",
+      payload: newUser,
+    });
+
+    expect(newState.users).toEqual([newUser]);
+  });
 });
