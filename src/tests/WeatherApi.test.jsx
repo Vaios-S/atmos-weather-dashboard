@@ -82,4 +82,14 @@ describe("getCurrentWeather", () => {
       "Network Error",
     );
   });
+
+  test("should call axios when fetching forecast", async () => {
+    axios.get.mockResolvedValue({
+      data: {},
+    });
+
+    await getCurrentWeather("Thessaloniki");
+
+    expect(axios.get).toHaveBeenCalled();
+  });
 });
