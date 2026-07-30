@@ -12,4 +12,12 @@ describe("Loader", () => {
       screen.getByText("Please wait while we get the data for you."),
     ).toBeInTheDocument();
   });
+
+  test("should render custom loading messages", () => {
+    render(<Loader message="Fetching weather..." subMessage="Almost there!" />);
+
+    expect(screen.getByText("Fetching weather...")).toBeInTheDocument();
+
+    expect(screen.getByText("Almost there!")).toBeInTheDocument();
+  });
 });
