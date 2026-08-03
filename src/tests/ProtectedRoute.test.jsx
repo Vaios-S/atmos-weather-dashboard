@@ -46,4 +46,26 @@ describe("ProtectedRoute", () => {
 
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
+
+  test("should render protected content for authenticated user", () => {
+    useAuth.mockReturnValue({
+      isAuthLoaded: true,
+      state: {
+        currentUser: {
+          id: 1,
+          username: "john",
+        },
+      },
+    });
+
+    render(
+      <MemoryRouter>
+        <ProtectedRoute>
+          <h1>Dashboard</h1>
+        </ProtectedRoute>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Dashboard")).toBeInTheDocument();
+  });
 });
