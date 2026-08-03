@@ -27,4 +27,23 @@ describe("ProtectedRoute", () => {
 
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
+
+  test("should render loader while auth is loading", () => {
+    useAuth.mockReturnValue({
+      isAuthLoaded: false,
+      state: {
+        currentUser: null,
+      },
+    });
+
+    render(
+      <MemoryRouter>
+        <ProtectedRoute>
+          <h1>Dashboard</h1>
+        </ProtectedRoute>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+  });
 });
