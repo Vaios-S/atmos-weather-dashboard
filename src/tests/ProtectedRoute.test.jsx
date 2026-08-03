@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 
 import ProtectedRoute from "../routes/ProtectedRoute";
 
@@ -67,5 +67,34 @@ describe("ProtectedRoute", () => {
     );
 
     expect(screen.getByText("Dashboard")).toBeInTheDocument();
+  });
+
+  test("should redirect unauthenticated user to login", () => {
+    useAuth.mockReturnValue({
+      isAuthLoaded: true,
+      state: {
+        currentUser: null,
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/dashboard"]}>
+        <Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <h1>Dashboard</h1>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/login" element={<h1>Login Page</h1>} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByText("Login Page")).toBeInTheDocument();
+    expect(screen.queryByText("Dashboard")).not.toBeInTheDocument();
   });
 });
