@@ -97,4 +97,26 @@ describe("ProtectedRoute", () => {
     expect(screen.getByText("Login Page")).toBeInTheDocument();
     expect(screen.queryByText("Dashboard")).not.toBeInTheDocument();
   });
+
+  test("should not render loader when auth is loaded", () => {
+    useAuth.mockReturnValue({
+      isAuthLoaded: true,
+      state: {
+        currentUser: {
+          id: 1,
+          username: "john",
+        },
+      },
+    });
+
+    render(
+      <MemoryRouter>
+        <ProtectedRoute>
+          <h1>Dashboard</h1>
+        </ProtectedRoute>
+      </MemoryRouter>,
+    );
+
+    expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
+  });
 });
