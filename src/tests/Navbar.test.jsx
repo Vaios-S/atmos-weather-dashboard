@@ -72,4 +72,20 @@ describe("Navbar", () => {
       type: "TOGGLE_UNIT",
     });
   });
+
+  test("should toggle theme", async () => {
+    const user = userEvent.setup();
+
+    setupMocks();
+
+    render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "☀️" }));
+
+    expect(toggleTheme).toHaveBeenCalled();
+  });
 });
