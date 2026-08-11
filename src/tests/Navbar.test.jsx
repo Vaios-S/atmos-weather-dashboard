@@ -54,4 +54,22 @@ describe("Navbar", () => {
     expect(screen.getByText("Favorites")).toBeInTheDocument();
     expect(screen.getByText("Logout")).toBeInTheDocument();
   });
+
+  test("should toggle weather unit", async () => {
+    const user = userEvent.setup();
+
+    setupMocks();
+
+    render(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "°C" }));
+
+    expect(weatherDispatch).toHaveBeenCalledWith({
+      type: "TOGGLE_UNIT",
+    });
+  });
 });
